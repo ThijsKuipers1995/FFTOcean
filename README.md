@@ -1,6 +1,8 @@
 # FFTOcean
 Ocean surface simulation in Python.
 
+![ocean](figures/ocean.png)
+
 ## Requirements
 `
 torch
@@ -23,11 +25,11 @@ Alternatively, when a setting is shared across all cascades it can simply be pro
 The simulation can be customized with a variety of settings.
 
 - `num_cascades`: The number of cascades used in the simutation.
-- `resolution`: The resolution of the simulation.
+- `resolution`: The resolution of the simulation. **This setting cannot be initialized individually for each cascade.**
 - `cascade_size`: Size of cascade. This determines the scale of the simulation for the given cascade.
 - `cascade_strength`: Multiplier that determines how much each cascade contributes to the simulation.
 - `wind_speed`: Speed of simulated wind.
-- `wind_angle`: Angle of the wind direction. An angle of 0 degrees results in an eastwards direction, 90 degree northwards, etc.
+- `wind_angle`: Angle of the wind direction. An angle of $0$ degrees results in an eastwards direction, $90$ degree northwards, etc.
 - `swell`: Determines how much the waves align perpendicular to the wind direction.
 - `choppiness`: Determines the choppiness or amplitude of the waves.
 - `simulation_speed`: Determines the speed of the simulation. Simulation speed is independent from framerate.
@@ -36,4 +38,4 @@ The simulation can be customized with a variety of settings.
 
 ## Running the Simulation
 
-After the `Ocean` object has been initialized, the simulation can be started by calling the `run()` method. This method has a single argument `render_resolution` that determines the resolution of the rendered ocean mesh. Defaults to 50, rendering a $50 \times 50$ mesh. 
+Once the `Ocean` object has been initialized, the simulation can be started by calling the `run()` method. This method has a single argument, `render_resolution`, that determines the resolution of the rendered ocean mesh. Defaults to $50$, rendering a mesh of $50 \times 50$ vertices. This setting **significantly** impacts performance. 
