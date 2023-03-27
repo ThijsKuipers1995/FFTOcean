@@ -17,7 +17,7 @@ Running `main.py` starts a preview simulation. The parameters for the preview si
 
 ## Simulation Setup
 
-To setup a simulation, import `Ocean` from `fftocean/ocean.py`. The simulation supports any number of cascades, each with individual simulation settings. When providing settings to individual cascades, do so in a `tuple` where the $i$-th setting corresponds to the $i$-th cascade. The number of settings provided must be equal to the number of cascades.
+To setup a simulation, import `Ocean` from `fftocean/ocean.py`. The simulation supports any number of cascades, each with individual simulation settings. When providing settings to individual cascades, do so in a `tuple` where the $i$-th setting corresponds to the $i$-th cascade. The number of settings must be equal to the number of cascades.
 
 Alternatively, when a setting is shared across all cascades it can simply be provided as a single number. For an example simulation setup, see `main.py`.
 
