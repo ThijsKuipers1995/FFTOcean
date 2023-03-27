@@ -5,6 +5,7 @@ Ocean surface simulation in Python.
 
 ## Requirements
 `
+python>=3.10
 torch
 numpy
 matplotlib
