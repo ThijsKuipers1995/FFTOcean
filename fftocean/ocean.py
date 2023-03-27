@@ -1,5 +1,5 @@
-from ocean_cascade import OceanCascade
-from render import render3D
+from fftocean.ocean_cascade import OceanCascade
+from fftocean.render import render3D
 
 import torch
 from torch import Tensor

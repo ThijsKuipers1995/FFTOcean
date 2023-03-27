@@ -1,4 +1,4 @@
-from ocean import Ocean
+from fftocean.ocean import Ocean
 
 
 def main():
@@ -16,6 +16,7 @@ def main():
         wind_speed=wind_speed,
         cascade_time_multiplier=cascade_time_multipliers,
     )
+
     ocean.run(render_resolution=32)
 
 

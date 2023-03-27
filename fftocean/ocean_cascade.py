@@ -3,7 +3,7 @@ from torch import Tensor
 import torch.nn as nn
 from math import pi, sin, cos
 
-import spectrum
+import fftocean.spectrum as spectrum
 
 
 class OceanCascade(nn.Module):
