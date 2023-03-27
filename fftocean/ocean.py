@@ -108,7 +108,7 @@ class Ocean:
 
         return self.surface_buffer
 
-    def SurfaceGenerator(self):
+    def surfaceGenerator(self):
         """
         Generator that yields surface at each consecutive
         time step. Simulation time is not tied to framerate.
@@ -133,4 +133,4 @@ class Ocean:
             - render_resolution: Resolution at whih the surface mesh will be
               rendered. NOTE: Significantly impacts performance!
         """
-        render3D(self.SurfaceGenerator(), render_resolution)
+        render3D(self.surfaceGenerator(), render_resolution)

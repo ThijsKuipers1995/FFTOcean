@@ -17,7 +17,7 @@ def main():
         cascade_time_multiplier=cascade_time_multipliers,
     )
 
-    ocean.run(render_resolution=128)
+    ocean.run(render_resolution=32)
 
 
 if __name__ == "__main__":
