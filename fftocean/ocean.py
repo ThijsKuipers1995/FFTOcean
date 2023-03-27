@@ -11,7 +11,7 @@ class Ocean:
     def __init__(
         self,
         num_cascades: int = 2,
-        cascade_resolution: int = 256,
+        resolution: int = 256,
         cascade_size: int | tuple[int, ...] = (1000, 300),
         cascade_strength: float | tuple[float, ...] = (1.2, 1.5),
         wind_speed: float | tuple[float, ...] = 4.0,
@@ -30,7 +30,7 @@ class Ocean:
 
         Arguments:
             - num_cascades: Number of cascades that will be simulated.
-            - cascade_resolution: Simulated cascade resolution.
+            - resolution: resolution of the simulation.
             - cascade_size: Size of simulated cascade.
             - cascade_strength: Determines how much the cascade contributes to
                                 the ocean surface.
@@ -53,7 +53,7 @@ class Ocean:
 
         self.cascades = [
             OceanCascade(
-                cascade_resolution,
+                resolution,
                 cascade_size[i] if type(cascade_size) is tuple else cascade_size,
                 choppiness[i] if type(choppiness) is tuple else choppiness,
                 wind_speed[i] if type(wind_speed) is tuple else wind_speed,
@@ -65,16 +65,16 @@ class Ocean:
         ]
 
         # initialize basegrid
-        x = torch.linspace(-10, 10, cascade_resolution)
+        x = torch.linspace(-10, 10, resolution)
         self.grid = torch.stack(
             (
                 *torch.meshgrid((x, x), indexing="xy"),
-                torch.zeros(cascade_resolution, cascade_resolution),
+                torch.zeros(resolution, resolution),
             )
         )
 
         # buffers for x, y, and z vertex coordinates
-        self.surface_buffer = torch.empty(3, cascade_resolution, cascade_resolution)
+        self.surface_buffer = torch.empty(3, resolution, resolution)
 
     def _reset_vertex_buffers(self):
         self.surface_buffer[:] = 0
