@@ -1,2 +1,7 @@
 # FFTOcean
-Ocean surface simulation in Python
+Ocean surface simulation in Python.
+
+## Requirements:
+'''torch
+numpy
+matplotlib'''
