@@ -36,8 +36,8 @@ class Ocean:
                                 the ocean surface.
             - wind_speed: Speed of simulated wind.
             - wind_angle: Angle on unit circle that wind is directed in.
-            - wind_alignment: Determines how much waves align perpendicular to
-                              the wind direction.
+            - swell: Determines how much waves align perpendicular to
+                                the wind direction.
             - choppiness: Determines wave choppiness.
             - simulation_speed: Speed of simulation.
             - cascade_time_multiplier: Alters speed of simulation per cascade,
