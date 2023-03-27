@@ -1,5 +1,5 @@
 # FFTOcean
-Ocean surface simulation in Python.
+Ocean simulation in Python.
 
 ![ocean](figures/ocean.png)
 
