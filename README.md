@@ -30,7 +30,7 @@ The simulation can be customized with a variety of settings.
 - `cascade_size`: Size of cascade. This determines the scale of the simulation for the given cascade.
 - `cascade_strength`: Multiplier that determines how much each cascade contributes to the simulation.
 - `wind_speed`: Speed of simulated wind.
-- `wind_angle`: Angle of the wind direction. An angle of $0$ degrees results in an eastwards direction, $90$ degree northwards, etc.
+- `wind_angle`: Angle of the wind direction. An angle of $0$ degrees results coming from an eastwards direction, $90$ degree northwards, etc.
 - `swell`: Determines how much the waves align perpendicular to the wind direction.
 - `choppiness`: Determines the choppiness or amplitude of the waves.
 - `simulation_speed`: Determines the speed of the simulation. Simulation speed is independent from framerate.
