@@ -27,7 +27,9 @@ class PhillipsSpectrum(nn.Module):
         self.swell = swell
         self.G = G
 
-        self.register_buffer("wind_direction", wind_direction)
+        self.register_buffer(
+            "wind_direction", wind_direction / torch.linalg.norm(wind_direction)
+        )
         self.register_buffer("noise_map", torch.randn(2, n, n, 2))
 
         self.register_buffer("zero_real", torch.zeros(n, n))
@@ -43,7 +45,11 @@ class PhillipsSpectrum(nn.Module):
         self.register_buffer("magnitude_map", torch.linalg.norm(self.k, dim=-1))
         self.magnitude_map[self.magnitude_map < 0.00001] = 0.00001
 
+        self.register_buffer("magnitude_sq", self.magnitude_map**2)
+        self.register_buffer("magnitude_sqsq", self.magnitude_sq**2)
         self.register_buffer("magnitude_sqrt", torch.sqrt(self.magnitude_map * self.G))
+
+        self.register_buffer("k_normalized", self.k / self.magnitude_map[..., None])
 
         dx = torch.stack((self.zero_real, -self.k[..., 0] / self.magnitude_map), dim=-1)
         dy = torch.stack((self.zero_real, -self.k[..., 1] / self.magnitude_map), dim=-1)
@@ -54,27 +60,20 @@ class PhillipsSpectrum(nn.Module):
     def _generate_h0k_h0minusk(self) -> None:
         L = self.wind_speed**2 / self.G
 
-        k_n = self.k / self.magnitude_map[..., None]
-        w_n = self.wind_direction / torch.linalg.norm(self.wind_direction)
-        mag_sq = self.magnitude_map**2
-
-        Ph_term = (
-            self.amplitude
-            * torch.exp(-1 / (mag_sq * L * L))
-            / (mag_sq * mag_sq)
-            * torch.exp(mag_sq * (self.ocean_size / 2000) ** 2)
-            / sqrt(2)
+        ph_term = torch.sqrt(self.amplitude / self.magnitude_sqsq) * torch.exp(
+            (-1 / (self.magnitude_sq * L**2))
+            + (self.magnitude_sq * (self.ocean_size / 2000) ** 2) / 1.414213
         )
 
         _h0k = torch.clip(
-            Ph_term * ((k_n @ w_n) ** self.swell),
-            -4000,
-            4000,
+            ph_term * ((self.k_normalized @ self.wind_direction) ** self.swell),
+            0,
+            1000000,
         )
         _h0minusk = torch.clip(
-            Ph_term * ((-k_n @ w_n) ** self.swell),
-            -4000,
-            4000,
+            ph_term * ((-self.k_normalized @ self.wind_direction) ** self.swell),
+            0,
+            1000000,
         )
 
         h0k = torch.view_as_complex(_h0k[..., None] * self.noise_map[0])

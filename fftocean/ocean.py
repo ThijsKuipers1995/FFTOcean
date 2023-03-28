@@ -35,7 +35,7 @@ class Ocean:
             - cascade_strength: Determines how much the cascade contributes to
                                 the ocean surface.
             - wind_speed: Speed of simulated wind.
-            - wind_angle: Angle on unit circle that wind is directed in.
+            - wind_angle: Angle on unit circle that wind is coming from.
             - swell: Determines how much waves align perpendicular to
                                 the wind direction.
             - choppiness: Determines wave choppiness.
