@@ -4,8 +4,8 @@ from fftocean.ocean import Ocean
 def main():
     num_cascades = 3
     cascade_sizes = (1000, 200, 50)
-    cascade_time_multipliers = (1.2, 0.7, 0.4)
-    cascade_strengths = (3, 2, 0.7)
+    cascade_time_multipliers = (1.2, 0.7, 0.1)
+    cascade_strengths = (4, 1.5, 0.5)
 
     wind_speed = 13
 
