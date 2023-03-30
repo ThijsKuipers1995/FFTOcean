@@ -88,8 +88,8 @@ def render3D(
         plot[0] = ax.plot_surface(
             *surface,
             cmap=cmap,
-            vmin=-0.1,
-            vmax=0.1,
+            vmin=-0.15,
+            vmax=0.15,
             edgecolor="none",
             linewidth=0,
             antialiased=False,
@@ -124,7 +124,9 @@ def render3D(
         )
     ]
     ax.set_zlim(-2, 2)
-    anim = animation.FuncAnimation(fig, animator, fargs=(plot,), interval=interval)
+    anim = animation.FuncAnimation(
+        fig, animator, fargs=(plot,), interval=interval, cache_frame_data=False
+    )
 
     ax.axis("off")
 

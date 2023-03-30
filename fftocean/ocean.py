@@ -54,11 +54,19 @@ class Ocean:
         self.cascades = [
             OceanCascade(
                 resolution,
-                cascade_size[i] if type(cascade_size) is tuple else cascade_size,
-                choppiness[i] if type(choppiness) is tuple else choppiness,
-                wind_speed[i] if type(wind_speed) is tuple else wind_speed,
-                swell[i] if type(swell) is tuple else swell,
-                wind_angle[i] if type(wind_angle) is tuple else wind_angle,
+                cascade_size[i]
+                if isinstance(cascade_size, (str, list, tuple))
+                else cascade_size,
+                choppiness[i]
+                if isinstance(choppiness, (str, list, tuple))
+                else choppiness,
+                wind_speed[i]
+                if isinstance(wind_speed, (str, list, tuple))
+                else wind_speed,
+                swell[i] if isinstance(swell, (str, list, tuple)) else swell,
+                wind_angle[i]
+                if isinstance(wind_angle, (str, list, tuple))
+                else wind_angle,
                 angle_in=angle_unit,
             )
             for i in range(num_cascades)
@@ -77,7 +85,7 @@ class Ocean:
         self.surface_buffer = torch.empty(3, resolution, resolution)
 
     def _reset_vertex_buffers(self):
-        self.surface_buffer[:] = 0
+        self.surface_buffer[...] = 0
 
     def calculate_ocean_surface(self, time: float) -> Tensor:
         """
@@ -93,12 +101,12 @@ class Ocean:
         for i, cascade in enumerate(self.cascades):
             cascade_strength = (
                 self.cascade_strength[i]
-                if type(self.cascade_strength) is tuple
+                if isinstance(self.cascade_strength, (str, list, tuple))
                 else self.cascade_strength
             )
             cascade_time_multiplier = (
                 self.cascade_time_multiplier[i]
-                if type(self.cascade_time_multiplier) is tuple
+                if isinstance(self.cascade_time_multiplier, (str, list, tuple))
                 else self.cascade_time_multiplier
             )
 

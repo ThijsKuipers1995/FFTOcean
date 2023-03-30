@@ -47,7 +47,7 @@ class OceanCascade(nn.Module):
         x = torch.stack(torch.meshgrid(x_range, x_range, indexing="xy"))
 
         # IFFT index permutations
-        self.perms = torch.where(torch.sum(x, dim=0) % 2 == 1, 1, -1)
+        self.register_buffer("perms", torch.where(torch.sum(x, dim=0) % 2 == 1, 1, -1))
 
     def _inversion_pass(self, components):
         return self.perms * components
@@ -55,5 +55,4 @@ class OceanCascade(nn.Module):
     def forward(self, t: float) -> Tensor:
         hkt_components = self.spectrum(t)[self.components]
         components = torch.fft.ifft2(hkt_components).real
-
         return self._inversion_pass(components)

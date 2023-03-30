@@ -3,15 +3,19 @@ from fftocean.ocean import Ocean
 
 def main():
     num_cascades = 3
+    resolution = 64
     cascade_sizes = (1000, 200, 50)
-    cascade_time_multipliers = (1.2, 0.7, 0.1)
-    cascade_strengths = (4, 1.5, 0.5)
+    cascade_time_multipliers = (1.2, 0.5, 0.3)
+    cascade_strengths = (4, 1.5, 0.4)
+    wind_angles = (36, 40, 51)
+    swells = (2, 3, 4)
 
-    wind_speed = 13
+    wind_speed = 8
 
     ocean = Ocean(
-        wind_angle=45,
-        swell=5,
+        resolution=resolution,
+        wind_angle=wind_angles,
+        swell=swells,
         num_cascades=num_cascades,
         cascade_size=cascade_sizes,
         cascade_strength=cascade_strengths,
@@ -19,7 +23,7 @@ def main():
         cascade_time_multiplier=cascade_time_multipliers,
     )
 
-    ocean.run(render_resolution=40)
+    ocean.run(render_resolution=64)
 
 
 if __name__ == "__main__":

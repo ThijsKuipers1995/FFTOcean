@@ -52,28 +52,28 @@ class PhillipsSpectrum(nn.Module):
         self.register_buffer("k_normalized", self.k / self.magnitude_map[..., None])
 
         dx = torch.stack((self.zero_real, -self.k[..., 0] / self.magnitude_map), dim=-1)
-        dy = torch.stack((self.zero_real, -self.k[..., 1] / self.magnitude_map), dim=-1)
+        dz = torch.stack((self.zero_real, -self.k[..., 1] / self.magnitude_map), dim=-1)
 
         self.register_buffer("dx", torch.view_as_complex(dx))
-        self.register_buffer("dy", torch.view_as_complex(dy))
+        self.register_buffer("dz", torch.view_as_complex(dz))
 
     def _generate_h0k_h0minusk(self) -> None:
         L = self.wind_speed**2 / self.G
 
         ph_term = torch.sqrt(self.amplitude / self.magnitude_sqsq) * torch.exp(
             (-1 / (self.magnitude_sq * L**2))
-            + (self.magnitude_sq * (self.ocean_size / 2000) ** 2) / 1.414213
+            + (-self.magnitude_sq * (self.ocean_size / 2000) ** 2) / 1.414213
         )
 
         _h0k = torch.clip(
-            ph_term * ((self.k_normalized @ self.wind_direction) ** self.swell),
+            ph_term * ((self.k_normalized @ self.wind_direction).abs() ** self.swell),
             0,
-            1000000,
+            100000,
         )
         _h0minusk = torch.clip(
-            ph_term * ((-self.k_normalized @ self.wind_direction) ** self.swell),
+            ph_term * ((-self.k_normalized @ self.wind_direction).abs() ** self.swell),
             0,
-            1000000,
+            100000,
         )
 
         h0k = torch.view_as_complex(_h0k[..., None] * self.noise_map[0])
@@ -93,9 +93,9 @@ class PhillipsSpectrum(nn.Module):
         exp_iwt = torch.view_as_complex(torch.stack((cos_w_t, sin_w_t), dim=-1))
         exp_iwt_inv = torch.view_as_complex(torch.stack((cos_w_t, -sin_w_t), dim=-1))
 
-        hkt_dy = (self.h0k * exp_iwt) + (self.h0minusk_conj * exp_iwt_inv)
-        hkt_dx = self.dx * hkt_dy
-        hkt_dz = self.dy * hkt_dy
+        hkt_dz = (self.h0k * exp_iwt) + (self.h0minusk_conj * exp_iwt_inv)
+        hkt_dx = self.dx * hkt_dz
+        hkt_dy = self.dz * hkt_dz
 
         components = torch.stack((hkt_dx, hkt_dy, hkt_dz))
 
