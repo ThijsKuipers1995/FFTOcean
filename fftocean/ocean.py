@@ -73,7 +73,7 @@ class Ocean:
         ]
 
         # initialize basegrid
-        x = torch.linspace(-10, 10, resolution)
+        x = torch.linspace(-2, 2, resolution)
         self.grid = torch.stack(
             (
                 *torch.meshgrid((x, x), indexing="xy"),

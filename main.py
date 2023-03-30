@@ -5,8 +5,8 @@ def main():
     num_cascades = 3
     resolution = 64
     cascade_sizes = (1000, 200, 50)
-    cascade_time_multipliers = (1.2, 0.5, 0.3)
-    cascade_strengths = (4, 1.5, 0.4)
+    cascade_time_multipliers = (1.2, 0.5, 0.5)
+    cascade_strengths = (2, 1.5, 0.4)
     wind_angles = (36, 40, 51)
     swells = (2, 3, 4)
 

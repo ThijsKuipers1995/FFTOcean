@@ -51,8 +51,8 @@ class PhillipsSpectrum(nn.Module):
 
         self.register_buffer("k_normalized", self.k / self.magnitude_map[..., None])
 
-        dx = torch.stack((self.zero_real, -self.k[..., 0] / self.magnitude_map), dim=-1)
-        dz = torch.stack((self.zero_real, -self.k[..., 1] / self.magnitude_map), dim=-1)
+        dx = torch.stack((self.zero_real, self.k[..., 0] / self.magnitude_map), dim=-1)
+        dz = torch.stack((self.zero_real, self.k[..., 1] / self.magnitude_map), dim=-1)
 
         self.register_buffer("dx", torch.view_as_complex(dx))
         self.register_buffer("dz", torch.view_as_complex(dz))
