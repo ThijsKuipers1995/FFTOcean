@@ -2,15 +2,15 @@ from fftocean.ocean import Ocean
 
 
 def main():
-    num_cascades = 3
+    num_cascades = 2
     resolution = 64
-    cascade_sizes = (1000, 200, 50)
-    cascade_time_multipliers = (1.2, 0.5, 0.5)
-    cascade_strengths = (2, 1.5, 0.4)
-    wind_angles = (36, 40, 51)
-    swells = (2, 3, 4)
+    cascade_sizes = (1000, 27)
+    cascade_time_multipliers = (1, 0.7)
+    cascade_strengths = (1, 0.6)
+    wind_angles = (45, 45)
+    swells = (4, 2)
 
-    wind_speed = 8
+    wind_speed = (21, 7)
 
     ocean = Ocean(
         resolution=resolution,
